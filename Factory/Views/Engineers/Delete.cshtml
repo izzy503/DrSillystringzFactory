@@ -1,0 +1,14 @@
+@model Factory.Models.Engineer
+
+<h3>Confirmation: Engineer Deletion</h3>
+
+<p>Do you really wish to remove this Engineer?</p>
+
+<p>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</p>
+
+@using (Html.BeginForm())
+{
+  <button type="submit" class="btn btn-danger">Confirm Deletion</button>
+}
+
+<p>@Html.ActionLink("Return to Engineer List", "Index")</p>

@@ -1,0 +1,19 @@
+@model Factory.Models.Machine
+
+<h2>Engineer Assignment</h2>
+
+<h4>Link an Engineer to this Device: @Html.DisplayFor(model => model.Name)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.MachineId)
+
+  <div class="form-group">
+  @Html.Label("Select an Engineer")
+    @Html.DropDownList("EngineerId", null, new { @class = "form-control" })
+  </div>
+
+  <button type="submit" class="btn btn-success">Complete Assignment</button>
+}
+
+<p>@Html.ActionLink("Return to Device List", "Index")</p>

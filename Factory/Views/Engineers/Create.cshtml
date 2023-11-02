@@ -1,0 +1,15 @@
+@model Factory.Models.Engineer
+
+<h3>Enlist a New Expert</h3>
+
+<h4>Introduce a Fresh Talent</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.Name)
+    @Html.TextBoxFor(model => model.Name)
+
+    <button type="submit" class="btn btn-primary">Hire Engineer</button>
+}
+
+<p>@Html.ActionLink("Browse All Engineers", "Index")</p>

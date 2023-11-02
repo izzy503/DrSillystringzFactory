@@ -1,0 +1,20 @@
+@model Factory.Models.Engineer
+
+<h2>Add a New Device</h2>
+
+<h4>Attach a Device to Engineer: @Html.DisplayFor(model => model.Name)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.EngineerId)
+  ;
+
+  <div>
+  @Html.Label("Select Device")
+    @Html.DropDownList("DeviceId")
+  </div>
+
+  <button type="submit">Confirm Assignment</button>
+}
+
+<p>@Html.ActionLink("Return to Engineers List", "Index")</p>
