@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Factory.Models
 {
-    public class EngineeringProfessional
+    public class Engineer
     {
         public int EngineerId { get; set; }
         [Required(ErrorMessage = "The name field cannot be empty.")]

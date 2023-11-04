@@ -2,12 +2,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Factory.Models
 {
-  public class FactoryDbContext : DbContext
+  public class FactoryContext : DbContext
   {
-    public DbSet<Engineer> EngineersSet { get; set; }
-    public DbSet<Machine> MachinesSet { get; set; }
-    public DbSet<MachineEngineer> MachineEngineersSet { get; set; }
+    public DbSet<Engineer> Engineers { get; set; }
+    public DbSet<Machine> Machines { get; set; }
+    public DbSet<MachineEngineer> MachineEngineers { get; set; }
 
-    public FactoryDbContext(DbContextOptions options) : base(options) { }
+    public FactoryContext(DbContextOptions options) : base(options) { }
   }
 }

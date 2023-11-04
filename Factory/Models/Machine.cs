@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Factory.Models
 {
-  public class MachineUnit
+  public class Machine
   {
-    public int DeviceId { get; set; }
+    public int MachineId { get; set; }
 
     [Required(ErrorMessage = "Machine name is required")]
     public string Title { get; set; }

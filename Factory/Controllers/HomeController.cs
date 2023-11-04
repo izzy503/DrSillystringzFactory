@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using ToDoList.Models;
+using Factory.Models;
 using System.Collections.Generic;
 
-namespace Factory
+namespace Factory.Controllers
 {
   public class HomeController : Controller
   {

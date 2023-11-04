@@ -4,6 +4,7 @@
 
 Sillystringz's Factory Management System is a web application designed to help the factory manager keep track of machine repairs and the engineers responsible for those repairs. This application allows you to manage engineers, machines, and their relationships. Engineers can be licensed to repair multiple machines, and machines can have multiple engineers licensed to repair them.
 
+
 ## Table of Contents
 - [Project Name](#project-name)
 - [Table of Contents](#table-of-contents)
@@ -20,9 +21,26 @@ Sillystringz's Factory Management System is a web application designed to help t
 
 To run this application locally, follow these steps:
 
-1. Clone the repository to your local machine.
-2. Open the project in your preferred development environment (e.g., Visual Studio, Visual Studio Code).
-3. Build and run the application.
+1. Clone the repository to your local machine:
+```bash
+git clone <REPO_URL>
+```
+2. Navigate to the directory in your terminal
+```cd DrSillystringzFactory.Solution```
+3. Add an appsettings.json file, replace username and passwrods with your MySQL infromation.
+
+```cs
+{
+  "ConnectionStrings": {
+      "DefaultConnection": "Server=localhost;Port=3306;database=Genesis_Scott;uid=[YOUR-USERNAME];pwd=[YOUR-MYSQL-PASSWORD];"
+  }
+}
+```
+
+4. run dotnet restore to install dependencies
+5. run dotnet ef database update to create the database
+6. Open the project in your preferred development environment (e.g., Visual Studio, Visual Studio Code).
+7. Build and run the application.
 
 dotnet run
 
@@ -32,16 +50,13 @@ Visit the homepage to get started.
 Explore machinery and the technicians responsible for repairs.
 Create new machinery and add technicians as needed.
 
-## Project Structure
+## Technologies Used
 
-The project structure follows standard ASP.NET Core MVC conventions:
-Controllers: Contains controller classes for handling HTTP requests.
-Models: Contains the Machinery and Technician classes.
-Views: Contains Razor views for rendering HTML.
-Program.cs: Defines the application entry point.
-MachineryController.cs: Manages the machinery-related actions.
-TechniciansController.cs: Manages the technician-related actions.
-Factory.csproj: Project file.
+- **ASP.NET Core MVC** 
+- **Razor** markup for rendering views
+- **Entity Framework Core**
+- C# 10
+- MYSQL
 
 ## Contributing
 

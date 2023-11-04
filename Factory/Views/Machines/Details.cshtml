@@ -1,0 +1,30 @@
+@using Factory.Models
+@model Factory.Models.Machine
+
+<h1>Device Information</h1>
+
+@Html.DisplayNameFor(model => model.Title)
+
+<p>@Html.ActionLink("Delete this Machine", "Delete", new {id = Model.MachineId})</p>
+
+@if(@Model.Collaborations.Count == 0)
+{
+  <span>This machine is not assigned any engineers.</span>
+}
+else
+{
+  <ul>
+  @foreach(MachineEngineer join in Model.Collaborations)
+  {
+    <li>@join.Machine.Title</li>
+    @using (Html.BeginForm("DeleteJoin", "Machines"))
+    {
+      @Html.Hidden("assignmentId", @join.MachineEngineerId)
+      <input type="submit" value="Delete"/>
+    }
+  }
+  </ul>
+}
+
+<p>@Html.ActionLink("Edit Machine", "Edit", new {id=Model.MachineId})
+<p>@Html.ActionLink("Add an Engineer", "AddEngineer", new {id = Model.MachineId})</p>

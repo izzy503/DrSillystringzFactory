@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Factory.Controllers
 {
-    [Route("machines")]
     public class MachinesController : Controller
     {
         private readonly FactoryContext _dbContext;
@@ -17,90 +16,90 @@ namespace Factory.Controllers
             _dbContext = dbContext;
         }
 
-        public IActionResult ListAll()
+        public IActionResult Index()
         {
             return View(_dbContext.Machines.ToList());
         }
 
-        public IActionResult MachineDetails(int id)
+        public IActionResult Details(int id)
         {
             Machine machineToDisplay = _dbContext.Machines
-                .Include(m => m.AssociatedEngineers)
+                .Include(m => m.Collaborations)
                 .ThenInclude(join => join.Engineer)
                 .FirstOrDefault(m => m.MachineId == id);
             return View(machineToDisplay);
         }
 
-        public IActionResult CreateMachine()
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateMachine(Machine machine)
+        public IActionResult Create(Machine machine)
         {
             _dbContext.Machines.Add(machine);
             _dbContext.SaveChanges();
-            return RedirectToAction("ListAll");
+            return RedirectToAction("Index");
         }
 
-        public IActionResult AssignEngineer(int id)
+        public IActionResult AddEngineer(int id)
         {
             Machine machineToAssign = _dbContext.Machines.FirstOrDefault(machine => machine.MachineId == id);
-            ViewBag.EngineerId = new SelectList(_dbContext.Engineers, "EngineerId", "FullName");
+            ViewBag.EngineerId = new SelectList(_dbContext.Engineers, "EngineerId", "Name");
             return View(machineToAssign);
         }
 
         [HttpPost]
-        public IActionResult AssignEngineer(Machine machine, int engineerId)
+        public IActionResult AddEngineer(Machine machine, int engineerId)
         {
-#nullable enable
+            #nullable enable
             MachineEngineer? assignment = _dbContext.MachineEngineers.FirstOrDefault(join => (join.EngineerId == engineerId && join.MachineId == machine.MachineId));
-#nullable disable
+            #nullable disable
             if (assignment == null && engineerId != 0)
             {
                 _dbContext.MachineEngineers.Add(new MachineEngineer { EngineerId = engineerId, MachineId = machine.MachineId });
                 _dbContext.SaveChanges();
             }
-            return RedirectToAction("MachineDetails", new { id = machine.MachineId });
+            return RedirectToAction("Details", new { id = machine.MachineId });
         }
 
-        public IActionResult EditMachine(int id)
+        public IActionResult Edit(int id)
         {
             Machine machineToEdit = _dbContext.Machines.FirstOrDefault(machine => machine.MachineId == id);
             return View(machineToEdit);
         }
 
         [HttpPost]
-        public IActionResult EditMachine(Machine machine)
+        public IActionResult Edit(Machine machine)
         {
             _dbContext.Machines.Update(machine);
             _dbContext.SaveChanges();
-            return RedirectToAction("ListAll");
+            return RedirectToAction("Index");
         }
 
-        public IActionResult RemoveMachine(int id)
+        public IActionResult Delete(int id)
         {
             Machine machineToRemove = _dbContext.Machines.FirstOrDefault(machine => machine.MachineId == id);
             return View(machineToRemove);
         }
 
-        [HttpPost, ActionName("RemoveMachine")]
-        public IActionResult DeleteMachine(int id)
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
         {
             Machine machineToDelete = _dbContext.Machines.FirstOrDefault(machine => machine.MachineId == id);
             _dbContext.Machines.Remove(machineToDelete);
             _dbContext.SaveChanges();
-            return RedirectToAction("ListAll");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public IActionResult RemoveAssignment(int assignmentId)
+        public IActionResult DeleteJoin(int assignmentId)
         {
             MachineEngineer assignment = _dbContext.MachineEngineers.FirstOrDefault(a => a.MachineEngineerId == assignmentId);
             _dbContext.MachineEngineers.Remove(assignment);
             _dbContext.SaveChanges();
-            return RedirectToAction("ListAll");
+            return RedirectToAction("Index");
         }
     }
 }
